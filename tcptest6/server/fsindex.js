@@ -38,4 +38,10 @@ server.on('connection', function(sock) {
         if (index !== -1) sockets.splice(index, 1);
         console.log('CLOSED: ' + sock.remoteAddress + ' ' + sock.remotePort);
     });
+
+    socket.on('error', function(error){
+            console.log('something wrong happpened here');
+            //socket.end('socket can send some more data but it will be ended');
+            //socket.destroy();
+            });
 });
