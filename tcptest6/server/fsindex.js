@@ -9,9 +9,10 @@ server.listen(port, host, () => {
 });
 
 let sockets = [];
-//fs.appendFile('tcpdata.log', 'id,pm25,pm10,temp,hum,atm,loc,m1,m2,m3,m4,m5,m6,m7,m8,m9,m10.m11,m12,m13,m14,m15,m16\n', function(error){console.log('data written');});
+//fs.appendFile('tcpdata.csv', 'id,pm25,pm10,temp,hum,atm,loc,m1,m2,m3,m4,m5,m6,m7,m8,m9,m10.m11,m12,m13,m14,m15,m16\n', function(error){console.log('data written');});
 // writeFile function with filename, content and callback function
-fs.writeFile('tcpdata.log', 'id,pm25,pm10,temp,hum,atm,loc,m1,m2,m3,m4,m5,m6,m7,m8,m9,m10.m11,m12,m13,m14,m15,m16\n', function (err) {
+fs.writeFile('tcpdata.csv', 'entry_id,field4,field5,field1,field2,field3,loc\n', function (err) {
+//fs.writeFile('tcpdata.csv', 'id,pm25,pm10,temp,hum,atm,loc,m1,m2,m3,m4,m5,m6,m7,m8,m9,m10.m11,m12,m13,m14,m15,m16\n', function (err) {
   if (err) throw err;
   console.log('Created successfully.');
 });
@@ -23,7 +24,7 @@ server.on('connection', function(sock) {
 
     sock.on('data', function(data) {
         console.log('DATA ' + sock.remoteAddress + ': ' + data);
-        fs.appendFile('tcpdata.log', data, function(error){console.log('data written');});
+        fs.appendFile('tcpdata.csv', data, function(error){console.log('data written');});
         // Write the data back to all the connected, the client will receive it as data from the server
         sockets.forEach(function(sock, index, array) {
             sock.write(sock.remoteAddress + ':' + sock.remotePort + " said " + data + '\n');
