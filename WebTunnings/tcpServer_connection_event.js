@@ -1,14 +1,10 @@
 var net = require('net');
 var socketUtil = require("./socketUtil");
 var fs = require("fs");
-snr['p1'] = snr['field4']
-snr['p2'] = snr['field5']
-snr['t'] = snr['field1']
-snr['h'] = snr['field2']
-snr['a'] = snr['field3']
-snr['m4'] = snr['entry_id']
+
 //fs.writeFile('tcpdata.csv', 'id,pm25,pm10,temp,hum,atm,loc,m1,m2,m3,m4,m5,m6,m7,m8,m9,m10.m11,m12,m13,m14,m15,m16\n', function (err) {
-fs.writeFile('tcpdata.csv', 'entry_id,field4,field5,field1,field2,field3,loc\n', function (err) {
+//fs.writeFile('tcpdata.csv', 'entry_id,field4,field5,field1,field2,field3,loc\n', function (err) {
+fs.writeFile('feeds.csv', 'entry_id,field4,field5,field1,field2,field3,loc,m1,m2,m3,m4,m5,m6,m7,m8,m9,m10,m11,m12,m13,m14\n', function (err) {
   if (err) throw err;
   console.log('Created successfully.');
 });
@@ -36,7 +32,7 @@ tcpServer.on('connection',function(socket){
 		socket.on('data', function(data){
 			//console.log('data received from the tcp client');
 			console.log('DATA: ' + data);
-			fs.appendFile('tcpdata.csv', data, function(error){console.log('data written');});
+			fs.appendFile('feeds.csv', data, function(error){console.log('data written');});
 			var flushed = socket.write('Server Reply: ' + data);
 			console.log(flushed);
 			//socket.emit('error', new Error('forcefully injected error'));
